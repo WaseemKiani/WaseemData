@@ -1,0 +1,22 @@
+.homeContainer{
+}
+.homeHeading{
+    text-align: center;
+    font-family: "Roboto";
+    font-size: 1.4vmax;
+    border-bottom: 1px solid rgba(21, 21, 21, 0.5);
+    width: 20vmax;
+    padding: 1vmax;
+    padding-top: 45px;
+    margin: 0 auto;
+    color: rgb(0, 0, 0, 0.7);
+}
+.cardContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px !important;
+    min-height: 100vh;
+}
