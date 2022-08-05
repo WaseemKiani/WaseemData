@@ -3,6 +3,10 @@ import "./loginSignup.css"
 import { Link } from 'react-router-dom';
 import {HiOutlineMail} from 'react-icons/hi';
 import {BiLock} from  'react-icons/bi'; 
+import {AiOutlineUser} from 'react-icons/ai';
+import {useSelector, useDispatch} from "react-redux";
+import {login} from "../../Redux/actions/userAction";
+
 /* 
 import EmailIcon from '@mui/icons-material/Email';
 import FaceIcon from '@mui/icons-material/Face';
@@ -13,10 +17,14 @@ import {useNavigate} from "react-router-dom";
 
 
 const LoginSignUp = () => {
+    const histroy = useNavigate();
+
+    const dispatch = useDispatch();
+    const {loading, user, isAuthenticated} = useSelector((state=> state.User));
+
                                         // States Decleration
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("")
-    
 
                                         // Login Form and SignUp form SWAPING
     const loginTab = useRef(null);
@@ -41,17 +49,18 @@ const LoginSignUp = () => {
     };
                     /* This is Section of SignUp Data Handling */ 
 
-const [user, setUser] = useState({
+const [users, setUser] = useState({
     name:"",
     email:"",
     password:"",
+    type:""
 })
 
 const registerDataChange = (e)=>{
-    setUser({...user, [e.target.name]:e.target.value}) 
+    setUser({...users, [e.target.name]:e.target.value}) 
 }
 
-const {name , email, password}= user;
+const {name , email, password,type}= users;
     
     const registerSubmit =(e)=>{
         e.preventDefault();
@@ -59,10 +68,19 @@ const {name , email, password}= user;
         myForm.set("name",name);
         myForm.set("email",email);
         myForm.set("password",password);
+        myForm.set("type",type);
+        
+
+        console.log(name,email,password,type)
     }
 
     const loginSubmit = (e)=>{
-        e.preventDefault();      
+        e.preventDefault();
+        dispatch(login(loginEmail,loginPassword));
+        console.log(loginEmail,loginPassword);
+        if(isAuthenticated){
+            histroy("/");
+        }
     }
 
     
@@ -81,7 +99,6 @@ const {name , email, password}= user;
 
                 <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>
                             <div className='loginEmail'>
-                               {/*  <EmailIcon /> */}
                                <HiOutlineMail />
                                  
 
@@ -95,7 +112,6 @@ const {name , email, password}= user;
                             </div>
 
                             <div className='loginPassword'>
-                               {/*  <LockOpenIcon/> */}
                                <BiLock/>
                                 <input
                                 type="password"
@@ -116,7 +132,7 @@ const {name , email, password}= user;
                 onSubmit={registerSubmit}
                 >
                         <div className='signupName'>
-                            {/* <FaceIcon/> */}
+                        <AiOutlineUser/>
                             <input 
                             type="text"
                             placeholder='Name'
@@ -128,7 +144,8 @@ const {name , email, password}= user;
                         </div>
 
                         <div className='signupEmail'>
-                        {/* <EmailIcon /> */}
+                        <HiOutlineMail />
+
                         <input 
                             type="email"
                             placeholder='Email'
@@ -139,8 +156,10 @@ const {name , email, password}= user;
                             />
                         </div>
 
+                        
+
                         <div className='signupPassword'>
-                        {/* <LockOpenIcon/> */}
+                               <BiLock/>
                         <input 
                             type="password"
                             placeholder='Password'
@@ -151,7 +170,16 @@ const {name , email, password}= user;
                             />
                         </div>
 
-                        
+                        <div className=''>
+                        <label for="type">Account Type:</label>
+                            <select id="accountType" name="type" onChange={registerDataChange}>
+                                <option selected>-</option>
+                                <option value="user">User</option>
+                                <option value="worker">Worker</option>
+                            </select>
+                        </div>
+
+
                         <input
                         type="submit"
                         value="Register"

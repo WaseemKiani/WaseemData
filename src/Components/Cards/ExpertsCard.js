@@ -17,13 +17,14 @@ const ExpertsCard = ({product}) => {
   return (
     /* 
     <Link className='productCard' to={`/products/${product._id}`}> */
-    <Link className='productCard' to={"/requestMechanic"}>
-    <img src={product.images[0].url} alt="Product Pic"/>
+    <Link className='productCard' to={product._id}>
+    <img src={product.image} alt="Product Pic"/>
     <p>{product.name}</p>
+    <h7>{`Category: ${product.category}`}</h7>
     <div>
         <ReactStars {...options}/> <span>({product.numOfReviews} Reviews)</span>
     </div>
-    <span>{`$${product.price}`}</span>
+    <span>{`Hour Rate: ${product.perHourRate}`}</span>
 
     </Link>
   )

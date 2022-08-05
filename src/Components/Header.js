@@ -2,7 +2,10 @@ import React from 'react'
 import logo from "./../images/logo.png";
 import "./Header.css"
 import { Link } from 'react-router-dom';
+import {useSelector} from "react-redux";
+
 const Header = () => {
+    const {isAuthenticated} = useSelector(state=>state.User);
   return (
     <>
         <div className='HeaderContainer'>
@@ -14,7 +17,9 @@ const Header = () => {
                     <li><a href='#'>Contact</a></li>
                 </ul>
             </nav>
-            <Link className='cta' to="/login"><button>Login / Register</button></Link>
+            {!isAuthenticated?<Link className='cta' to="/login"><button>Login / Register</button></Link>:
+            <h1></h1>}
+            
             
             
             {/* <ul>

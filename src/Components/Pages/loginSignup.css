@@ -130,7 +130,7 @@
     background-color: tomato;
     color: white;
     width: 100%;
-    font: 300 0.9vmax "Roboto";
+    font: 300 1.1vmax "Roboto" !important;
     padding: 0.8vmax;
     cursor: pointer;
     transition: all 0.5s;
@@ -157,6 +157,12 @@
   
   .shiftToRight {
     transform: translateX(100%);
+  }
+
+  #accountType{
+    margin-left: 10px !important;
+    width: 158px;
+    padding: 5px 5px;
   }
 
 
