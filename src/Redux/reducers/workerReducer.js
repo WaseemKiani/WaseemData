@@ -1,35 +1,58 @@
 import {
-        GET_ALL_MECHANIC_REQUEST,
-        GET_ALL_MECHANIC_SUCCESS,
-        GET_ALL_MECHANIC_FAIL
+        WORKER_LOGIN_REQUEST,
+        WORKER_LOGIN_SUCCESS,
+        WORKER_LOGIN_FAIL,
+        REGISTER_WORKER_REQUEST,
+        REGISTER_WORKER_SUCCESS,
+        REGISTER_WORKER_FAIL
    } from "../Constrainsts/workerConstraints.js"
 
 
 export const workerReducers = (state = {users:[] }, action )=>{
 switch (action.type){
-    case GET_ALL_MECHANIC_REQUEST:
-        return{
-            loading: true,
-            user: []
-        };
-    case GET_ALL_MECHANIC_SUCCESS:
-    return{
-        loading: false,
-        user: action.payload,
-        data: true
-    };
-
-    case GET_ALL_MECHANIC_FAIL:
-    return{
-        loading: false,
-        error: action.payload
-    };
-
     case "CLEAR_ERRORS":
     return{
         ...state,
         error: null
     };
+    case REGISTER_WORKER_REQUEST:
+            return{
+                loading: true
+            };
+
+    case REGISTER_WORKER_SUCCESS:
+            return{
+                loading: false,
+                user: action.payload,
+                isAuthenticatedWorker: true
+            };
+
+    case REGISTER_WORKER_FAIL:
+        return{
+            loading: false,
+            error: action.payload
+        };
+
+
+    case WORKER_LOGIN_REQUEST:
+            return{
+                loading: true,
+                user: {},
+                isAuthenticated: false
+            };
+
+    case WORKER_LOGIN_SUCCESS:
+        return{
+            loading: false,
+            user: action.payload,
+            isAuthenticatedWorker: true
+        };
+
+    case WORKER_LOGIN_FAIL:
+        return{
+            loading: false,
+            error: action.payload
+        };
     
     default: 
     return state

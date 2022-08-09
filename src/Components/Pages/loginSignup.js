@@ -1,11 +1,12 @@
-import React, { Fragment , useRef, useState} from 'react'
+import React, { Fragment , useEffect, useRef, useState} from 'react'
 import "./loginSignup.css"
 import { Link } from 'react-router-dom';
 import {HiOutlineMail} from 'react-icons/hi';
 import {BiLock} from  'react-icons/bi'; 
 import {AiOutlineUser} from 'react-icons/ai';
 import {useSelector, useDispatch} from "react-redux";
-import {login} from "../../Redux/actions/userAction";
+import {login , registerUser} from "../../Redux/actions/userAction";
+import {registerWorker, workerlogin} from "../../Redux/actions/workerActions";
 
 /* 
 import EmailIcon from '@mui/icons-material/Email';
@@ -16,16 +17,31 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {useNavigate} from "react-router-dom";
 
 
+
+
+
 const LoginSignUp = () => {
     const histroy = useNavigate();
 
+    const {loading, user, isAuthenticated} = useSelector((state)=>state.User);
+    const {isAuthenticatedWorker} = useSelector((state)=>state.Worker);
+    
+    
+    
+    useEffect(() => {
+        if(isAuthenticated || isAuthenticatedWorker){
+            histroy("/");
+        }
+    }, [isAuthenticated,isAuthenticatedWorker]);
+
+
     const dispatch = useDispatch();
-    const {loading, user, isAuthenticated} = useSelector((state=> state.User));
 
                                         // States Decleration
     const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("")
-
+    const [loginPassword, setLoginPassword] = useState("");
+    const [loginType, setLoginType] = useState("user");
+    
                                         // Login Form and SignUp form SWAPING
     const loginTab = useRef(null);
     const switcherTab = useRef(null);
@@ -53,36 +69,37 @@ const [users, setUser] = useState({
     name:"",
     email:"",
     password:"",
-    type:""
+    category:"",
+    image:""
 })
 
 const registerDataChange = (e)=>{
     setUser({...users, [e.target.name]:e.target.value}) 
 }
 
-const {name , email, password,type}= users;
+const {name , email, password,category, image}= users;
     
     const registerSubmit =(e)=>{
         e.preventDefault();
-        const myForm = new FormData();
-        myForm.set("name",name);
-        myForm.set("email",email);
-        myForm.set("password",password);
-        myForm.set("type",type);
+       
+        if(category === "user"){
+            dispatch(registerUser(users));
+        }else{  
+            dispatch(registerWorker(users));
+                }
         
 
-        console.log(name,email,password,type)
     }
 
     const loginSubmit = (e)=>{
         e.preventDefault();
-        dispatch(login(loginEmail,loginPassword));
-        console.log(loginEmail,loginPassword);
-        if(isAuthenticated){
-            histroy("/");
+        if(loginType==="user"){
+            dispatch(login(loginEmail,loginPassword));
+        }else{
+            dispatch(workerlogin(loginEmail,loginPassword));   
+            
         }
     }
-
     
 
   return (
@@ -98,6 +115,10 @@ const {name , email, password,type}= users;
                 </div>
 
                 <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>
+                            
+                            
+                            
+                            
                             <div className='loginEmail'>
                                <HiOutlineMail />
                                  
@@ -120,6 +141,14 @@ const {name , email, password,type}= users;
                                 value={loginPassword}
                                 onChange={(e)=> setLoginPassword(e.target.value)}
                                 />
+                            </div>
+
+                            <div className=''>
+                                <label for="type">Account Type:</label>
+             <select id="accountType" required name="category" onChange={(e)=>setLoginType(e.target.value)}>
+                                        <option selected value="user">User</option>
+                                        <option value="worker">Worker</option>
+                                    </select>
                             </div>
                         
                             <Link to="/password/forgot">Forget Password ?</Link>
@@ -170,9 +199,13 @@ const {name , email, password,type}= users;
                             />
                         </div>
 
+                        
+
+
+
                         <div className=''>
                         <label for="type">Account Type:</label>
-                            <select id="accountType" name="type" onChange={registerDataChange}>
+                            <select id="accountType" name="category" onChange={registerDataChange}>
                                 <option selected>-</option>
                                 <option value="user">User</option>
                                 <option value="worker">Worker</option>

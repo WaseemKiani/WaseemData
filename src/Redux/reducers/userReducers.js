@@ -17,6 +17,12 @@ export const userReducers = (state = {users:{} }, action )=>{
                 user: {},
                 isAuthenticated: false
             };
+        case REGISTER_USER_SUCCESS:
+            return{
+                loading: false,
+                user: action.payload,
+                isAuthenticated: true
+            };
         case LOGIN_SUCCESS:
         return{
             loading: false,
@@ -24,6 +30,7 @@ export const userReducers = (state = {users:{} }, action )=>{
             isAuthenticated: true
         };
 
+        case REGISTER_USER_FAIL:
         case LOGIN_FAIL:
         return{
             loading: false,
@@ -33,12 +40,6 @@ export const userReducers = (state = {users:{} }, action )=>{
         case REGISTER_USER_REQUEST:
             return{
                 loading: true
-            };
-
-        case REGISTER_USER_SUCCESS:
-            return{
-                loading: false,
-                response: action.payload
             };
 
         case CLEAR_ERRORS:

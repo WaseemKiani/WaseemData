@@ -4,7 +4,6 @@ import ReactStars from 'react-rating-stars-component';
 import "./ExpertCard.css"
 
 const ExpertsCard = ({product}) => {
-    console.log(product)
     
   const options= {
     edit: false,

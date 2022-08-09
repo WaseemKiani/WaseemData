@@ -13,7 +13,7 @@
 .LoginSignupBox{
     background-color: white;
     width: 25vw;
-    height: 70vh;
+    height: 90vh;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -163,6 +163,13 @@
     margin-left: 10px !important;
     width: 158px;
     padding: 5px 5px;
+  }
+  .noData{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 

@@ -3,7 +3,7 @@ import Banner from './Banner'
 import "./Home.css"
 import ExpertsCard from "./../Components/Cards/ExpertsCard.js"
 import {useSelector, useDispatch} from "react-redux"
-import {getUser} from "../Redux/actions/workerActions";
+import {getWorkers} from "../Redux/actions/publicActions";
 
 import axios from 'axios'
 
@@ -11,12 +11,11 @@ const Home = () => {
 
 
     const dispatch = useDispatch();
-    const {user , data} = useSelector((state)=>state.Worker);
-    console.log("Home", user , data); 
+    const {mechanics , data} = useSelector((state)=>state.Public);
 
     useEffect(() => {
         
-        dispatch(getUser());
+        dispatch(getWorkers());
 
     }, [])
     
@@ -30,7 +29,7 @@ const Home = () => {
 -
 
     {data ? <div className='cardContainer'>
-        {user && user.map((val,ind)=>(
+        {mechanics && mechanics.map((val,ind)=>(
             <ExpertsCard product={val} key={ind}/>
         ))}   
         </div>: <h1>Not Loaded</h1> }

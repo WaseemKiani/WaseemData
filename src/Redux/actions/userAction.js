@@ -18,7 +18,7 @@ export const login =(email,password)=> async(dispatch)=>{
         const config = {headers: {"Content-Type":"application/json"}}
         
         const data = await axios.post(`api/v1/login`,{email,password},config);
-        console.log(data.data);
+        
         dispatch({ type: LOGIN_SUCCESS, payload: data.data })             //  SECONF SUCCESSFULLY GET THE USER
 
     }catch(error){
@@ -39,7 +39,7 @@ export const registerUser =(userData)=> async(dispatch)=>{
         
         const data = await axios.post(`api/v1/registerUser`,userData,config);
 
-        dispatch({ type: REGISTER_USER_SUCCESS, payload: data })             //  SECONF SUCCESSFULLY GET THE USER
+        dispatch({ type: REGISTER_USER_SUCCESS, payload: data.data })             //  SECONF SUCCESSFULLY GET THE USER
 
     }catch(error){
         dispatch({

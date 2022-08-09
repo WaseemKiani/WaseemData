@@ -1,29 +1,54 @@
 import {
-    GET_ALL_MECHANIC_REQUEST,
-    GET_ALL_MECHANIC_SUCCESS,
-    GET_ALL_MECHANIC_FAIL
+    WORKER_LOGIN_REQUEST,
+    WORKER_LOGIN_SUCCESS,
+    WORKER_LOGIN_FAIL,
+    REGISTER_WORKER_REQUEST,
+    REGISTER_WORKER_SUCCESS,
+    REGISTER_WORKER_FAIL
 } from "../Constrainsts/workerConstraints"
 
 import axios from "axios";
 
 
-export const getUser=()=>async(dispatch)=>{
-    try {
-        dispatch({
-            type:GET_ALL_MECHANIC_REQUEST,
-        })
 
-        const {data} = await axios.get("api/v1/getallworkers");
-        dispatch({
-            type:GET_ALL_MECHANIC_SUCCESS,
-            payload: data.user    
-        })
+export const registerWorker =(userData)=> async(dispatch)=>{
+    try{
+        dispatch({ type: REGISTER_WORKER_REQUEST });                               //  FIRST REQUEST THE REGISTER_USER
+
+        const config = {headers: {"Content-Type":"application/json"}}
         
-    } catch (error) {
+        const data = await axios.post(`api/v1/newWorker`,userData,config);
+
+        dispatch({ type: REGISTER_WORKER_SUCCESS, payload: data.data })             //  SECONF SUCCESSFULLY GET THE USER
+
+    }catch(error){
         dispatch({
-            type:GET_ALL_MECHANIC_FAIL,
-            payload: error.response.data.message
-        })
-        
+            type: REGISTER_WORKER_FAIL,
+            payload:error.response.data.message,
+        }) 
     }
 }
+
+
+
+
+
+export const workerlogin =(email,password)=> async(dispatch)=>{
+    try{
+        dispatch({ type: WORKER_LOGIN_REQUEST });                               //  FIRST REQUEST THE USER
+
+        const config = {headers: {"Content-Type":"application/json"}}
+        
+        const data = await axios.post(`api/v1/workerlogin`,{email,password},config);
+        
+        dispatch({ type: WORKER_LOGIN_SUCCESS, payload: data.data })             //  SECONF SUCCESSFULLY GET THE USER
+
+    }catch(error){
+        dispatch({
+            type: WORKER_LOGIN_FAIL,
+            payload:error.response.data.message,
+        }) 
+    }
+};
+
+

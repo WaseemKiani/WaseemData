@@ -3,10 +3,12 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension"
 import {userReducers} from "../Redux/reducers/userReducers"
 import {workerReducers} from "./reducers/workerReducer";
+import { publicReducers } from "./reducers/publicReducer";
 
 const reducer = combineReducers({
     User: userReducers,
-    Worker: workerReducers
+    Worker: workerReducers,
+    Public: publicReducers
 })
 
 let initialState = {};

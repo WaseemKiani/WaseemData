@@ -5,19 +5,26 @@ import { Link } from 'react-router-dom';
 import {useSelector} from "react-redux";
 
 const Header = () => {
-    const {isAuthenticated} = useSelector(state=>state.User);
+    let {isAuthenticated} = useSelector(state=>state.User);
+    const {isAuthenticatedWorker} = useSelector((state)=>state.Worker);
+    
+    let hide;
+    if(isAuthenticatedWorker || isAuthenticated){
+        hide=true;
+    }
   return (
     <>
         <div className='HeaderContainer'>
             <img src={logo} className="logo" />
             <nav>
                 <ul className='nav_links'>
-                    <li><a href='#'>Home</a></li>
-                    <li><a href='#'>About</a></li>
-                    <li><a href='#'>Contact</a></li>
+                    <li><Link className='cta' to="/">Home</Link></li>
+                    <li><Link className='cta' to="/About">About</Link></li>
+                    <li><Link className='cta' to="/Contact">Contact</Link></li>
+                    {isAuthenticatedWorker ?<li><Link className='cta' to="/Myprofile">Profile</Link></li>:<h1></h1>}
                 </ul>
             </nav>
-            {!isAuthenticated?<Link className='cta' to="/login"><button>Login / Register</button></Link>:
+            {!hide ?<Link className='cta' to="/login"><button>Login / Register</button></Link>:
             <h1></h1>}
             
             
