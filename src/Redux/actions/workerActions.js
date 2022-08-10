@@ -4,7 +4,9 @@ import {
     WORKER_LOGIN_FAIL,
     REGISTER_WORKER_REQUEST,
     REGISTER_WORKER_SUCCESS,
-    REGISTER_WORKER_FAIL
+    REGISTER_WORKER_FAIL,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL
 } from "../Constrainsts/workerConstraints"
 
 import axios from "axios";
@@ -52,3 +54,17 @@ export const workerlogin =(email,password)=> async(dispatch)=>{
 };
 
 
+export const logoutWorker =()=> async(dispatch)=>{
+    try{
+        
+        await axios.get(`api/v1/logoutWorker`);
+        
+        dispatch({ type: LOGOUT_SUCCESS })             //  SECONF SUCCESSFULLY GET THE USER
+
+    }catch(error){
+        dispatch({
+            type: LOGOUT_FAIL,
+            payload:error.response.data.message,
+        }) 
+    }
+};

@@ -5,7 +5,9 @@ import {
         CLEAR_ERRORS,
         LOGIN_REQUEST,
         LOGIN_SUCCESS,
-        LOGIN_FAIL
+        LOGIN_FAIL,
+        LOGOUT_SUCCESS,
+        LOGOUT_FAIL
        } from "../Constrainsts/userConstraints.js"
 
 
@@ -41,6 +43,20 @@ export const userReducers = (state = {users:{} }, action )=>{
             return{
                 loading: true
             };
+        
+        case LOGOUT_SUCCESS:
+            return{
+                loading:false,
+                user:null,
+                isAuthenticated:false
+            }
+
+        case LOGOUT_FAIL:
+            return{
+                ...state,
+                loading:false,
+                error: action.payload
+            }
 
         case CLEAR_ERRORS:
         return{

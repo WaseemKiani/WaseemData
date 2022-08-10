@@ -1,0 +1,9 @@
+.speedDialIcon{
+    cursor: pointer;
+    width: 63px;
+}
+.speedDial{
+    position: fixed;
+    right: 2vmax;
+    top: 1vmax;
+}

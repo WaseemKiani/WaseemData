@@ -4,7 +4,9 @@ import {
         WORKER_LOGIN_FAIL,
         REGISTER_WORKER_REQUEST,
         REGISTER_WORKER_SUCCESS,
-        REGISTER_WORKER_FAIL
+        REGISTER_WORKER_FAIL,
+        LOGOUT_SUCCESS,
+        LOGOUT_FAIL
    } from "../Constrainsts/workerConstraints.js"
 
 
@@ -53,6 +55,21 @@ switch (action.type){
             loading: false,
             error: action.payload
         };
+
+        
+        case LOGOUT_SUCCESS:
+            return{
+                loading:false,
+                user:null,
+                isAuthenticatedWorker:false
+            }
+
+        case LOGOUT_FAIL:
+            return{
+                ...state,
+                loading:false,
+                error: action.payload
+            }
     
     default: 
     return state

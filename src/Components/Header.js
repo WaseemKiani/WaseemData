@@ -3,13 +3,23 @@ import logo from "./../images/logo.png";
 import "./Header.css"
 import { Link } from 'react-router-dom';
 import {useSelector} from "react-redux";
+import UserOptions from './Pages/SpeedDial/UserOptions';
 
 const Header = () => {
-    let {isAuthenticated} = useSelector(state=>state.User);
-    const {isAuthenticatedWorker} = useSelector((state)=>state.Worker);
-    
+    const {loading, user, isAuthenticated} = useSelector((state)=>state.User);
+    const worker = useSelector((state)=>state.Worker);
+
+    let data;
+
+  if(isAuthenticated){
+    data=user;
+  }
+  if(worker.isAuthenticatedWorker){
+    data=worker.user.user;
+  }
+
     let hide;
-    if(isAuthenticatedWorker || isAuthenticated){
+    if(worker.isAuthenticatedWorker || isAuthenticated){
         hide=true;
     }
   return (
@@ -17,11 +27,12 @@ const Header = () => {
         <div className='HeaderContainer'>
             <img src={logo} className="logo" />
             <nav>
+            {data && <UserOptions user={data}/>}
                 <ul className='nav_links'>
                     <li><Link className='cta' to="/">Home</Link></li>
                     <li><Link className='cta' to="/About">About</Link></li>
                     <li><Link className='cta' to="/Contact">Contact</Link></li>
-                    {isAuthenticatedWorker ?<li><Link className='cta' to="/Myprofile">Profile</Link></li>:<h1></h1>}
+                    {data && <><li></li><li></li></>}
                 </ul>
             </nav>
             {!hide ?<Link className='cta' to="/login"><button>Login / Register</button></Link>:

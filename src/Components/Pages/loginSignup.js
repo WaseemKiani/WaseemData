@@ -25,7 +25,7 @@ const LoginSignUp = () => {
 
     const {loading, user, isAuthenticated} = useSelector((state)=>state.User);
     const {isAuthenticatedWorker} = useSelector((state)=>state.Worker);
-    
+
     
     
     useEffect(() => {

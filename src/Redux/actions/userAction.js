@@ -5,7 +5,9 @@ import {
     CLEAR_ERRORS,
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
-    LOGIN_FAIL
+    LOGIN_FAIL,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL
 } from "../Constrainsts/userConstraints";
 
 import axios from "axios";
@@ -48,3 +50,20 @@ export const registerUser =(userData)=> async(dispatch)=>{
         }) 
     }
 }
+
+
+
+export const logoutUser =()=> async(dispatch)=>{
+    try{
+        
+        await axios.get(`api/v1/logoutUser`);
+        
+        dispatch({ type: LOGOUT_SUCCESS })             //  SECONF SUCCESSFULLY GET THE USER
+
+    }catch(error){
+        dispatch({
+            type: LOGOUT_FAIL,
+            payload:error.response.data.message,
+        }) 
+    }
+};
