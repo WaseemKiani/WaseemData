@@ -35,14 +35,26 @@
     color: tomato;
 }
 
-.LoginSignupBox > div > button{
-    background-color: tomato;
-    height: 3px;
+/* .LoginSignupBox > div > button{
+    background-color: tomato !important;
+    height: 0px !important;
     width: 50%;
     border: none;
     transition: all 0.5s;
-}
+} */
 
+
+
+
+
+
+.buttonA{
+    height: 5px;
+    background-color: red;
+    width: 50%;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
 .loginForm, .signupForm{
     display: flex;
     flex-direction: column;

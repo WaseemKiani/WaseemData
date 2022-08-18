@@ -7,7 +7,16 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
-    LOGOUT_FAIL
+    LOGOUT_FAIL,
+    SERVICE_REQUEST,
+    SERVICE_SUCCESS,
+    SERVICE_FAIL,
+    USER_ORDER_REQUEST,
+    USER_ORDER_SUCCESS,
+    USER_ORDER_FAIL,
+    GET_USER_ORDERS_REQUEST,
+    GET_USER_ORDERS_SUCCESS,
+    GET_USER_ORDERS_FAIL
 } from "../Constrainsts/userConstraints";
 
 import axios from "axios";
@@ -55,8 +64,7 @@ export const registerUser =(userData)=> async(dispatch)=>{
 
 export const logoutUser =()=> async(dispatch)=>{
     try{
-        
-        await axios.get(`api/v1/logoutUser`);
+        await axios.get(`api/v1/logoutUser/`);
         
         dispatch({ type: LOGOUT_SUCCESS })             //  SECONF SUCCESSFULLY GET THE USER
 
@@ -67,3 +75,32 @@ export const logoutUser =()=> async(dispatch)=>{
         }) 
     }
 };
+
+
+                               /* ORDER ACTION */
+
+
+
+export const sendMyOrder =(userData)=> async(dispatch)=>{
+    try{
+        dispatch({ type: USER_ORDER_REQUEST });                               //  FIRST REQUEST THE REGISTER_USER
+
+        const config = {headers: {
+                                "Content-Type":"application/json",
+                                "withCredentials": true
+                            }}
+
+
+        const data = await axios.post(`api/v1/newUserOrder`,userData,config);
+
+        dispatch({ type: USER_ORDER_SUCCESS, payload: data.data })             //  SECONF SUCCESSFULLY GET THE USER
+
+    }catch(error){
+        dispatch({
+            type: USER_ORDER_FAIL,
+            payload:error.response.data.message,
+        }) 
+    }
+}
+
+

@@ -111,7 +111,7 @@ const {name , email, password,category, image}= users;
                     <p onClick={(e)=> switchTabs(e,"login")}>LOGIN</p>
                     <p onClick={(e)=> switchTabs(e,"register")}>REGISTER</p>
                     </div>
-                    <button ref={switcherTab}></button>
+                    <div className='buttonA' ref={switcherTab}></div>
                 </div>
 
                 <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>

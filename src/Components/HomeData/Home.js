@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import Banner from './Banner'
 import "./Home.css"
-import ExpertsCard from "./../Components/Cards/ExpertsCard.js"
+import ExpertsCard from "./../../Components/Cards/ExpertsCard.js"
 import {useSelector, useDispatch} from "react-redux"
-import {getWorkers} from "../Redux/actions/publicActions";
+import {getWorkers} from "../../Redux/actions/publicActions";
 
 import axios from 'axios'
 
@@ -26,7 +26,7 @@ const Home = () => {
     <div className='homeContainer'>
     
     <h2 className="homeHeading">Services</h2>
--
+
 
     {data ? <div className='cardContainer'>
         {mechanics && mechanics.map((val,ind)=>(

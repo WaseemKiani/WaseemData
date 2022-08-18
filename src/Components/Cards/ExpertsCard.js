@@ -16,7 +16,7 @@ const ExpertsCard = ({product}) => {
   return (
     /* 
     <Link className='productCard' to={`/products/${product._id}`}> */
-    <Link className='productCard' to={`/request/${product._id}`}>
+    <Link className='productCard' to={`/${product._id}`}>
     <img src={product.image} alt="Product Pic"/>
     <p>{product.name}</p>
     <h7>{`Category: ${product.category}`}</h7>

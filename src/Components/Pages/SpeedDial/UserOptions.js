@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import {SpeedDial, SpeedDialAction} from "@material-ui/lab"
 import profile from "../../../images/Profile.png" 
 import "./UserOptions.css"
@@ -9,6 +9,7 @@ import {logoutUser} from "../../../Redux/actions/userAction";
 import {useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {logoutWorker} from "../../../Redux/actions/workerActions";
+import {clearOrderData} from "../../../Redux/actions/publicActions";
 
 
 const UserOptions = ({user}) => {
@@ -18,6 +19,8 @@ const UserOptions = ({user}) => {
         { icon: <AiOutlineShoppingCart/> , name: "My Orders", func: Orders},
         { icon: <BiLogOut/>              , name: "Logout", func: Logout}
     ]
+  
+    
     console.log();
     if(user.role==="worker"){
         options.unshift({ icon: <MdOutlineAccountBalance/> , name: "My Profile", func: myProfile});
@@ -25,15 +28,19 @@ const UserOptions = ({user}) => {
 
 
     function Orders(){
-        history("/myOrders")
+        history(`/myOrders/${user._id}`);
     }
     function myProfile(){
         history("/Myprofile");
     }
     function Logout(){
-        if(user && user.role==="user"){
+        if(user && user.role==="user"){ 
+            alert(`Thankyou ${user.name} for visiting Us`);
+            history("/");
             dispatch(logoutUser());
+            dispatch(clearOrderData());
         }else{
+            history("/");
             dispatch(logoutWorker());
         }
     }

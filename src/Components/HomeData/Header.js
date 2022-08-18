@@ -1,9 +1,9 @@
 import React from 'react'
-import logo from "./../images/logo.png";
+import logo from "./../../images/logo.png";
 import "./Header.css"
 import { Link } from 'react-router-dom';
 import {useSelector} from "react-redux";
-import UserOptions from './Pages/SpeedDial/UserOptions';
+import UserOptions from './../Pages/SpeedDial/UserOptions';
 
 const Header = () => {
     const {loading, user, isAuthenticated} = useSelector((state)=>state.User);
@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <>
         <div className='HeaderContainer'>
-            <img src={logo} className="logo" />
+            <Link to='/'><img src={logo} className="logo" /></Link>
             <nav>
             {data && <UserOptions user={data}/>}
                 <ul className='nav_links'>
@@ -35,7 +35,7 @@ const Header = () => {
                     {data && <><li></li><li></li></>}
                 </ul>
             </nav>
-            {!hide ?<Link className='cta' to="/login"><button>Login / Register</button></Link>:
+            {!hide ?<Link className='cta' to="/login"><button>Login </button></Link>:
             <h1></h1>}
             
             
