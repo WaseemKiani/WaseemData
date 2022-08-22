@@ -6,7 +6,9 @@ import {
         REGISTER_WORKER_SUCCESS,
         REGISTER_WORKER_FAIL,
         LOGOUT_SUCCESS,
-        LOGOUT_FAIL
+        LOGOUT_FAIL,
+        UPDATE_WORKER_SUCCESS,
+        UPDATE_WORKER_FAIL
    } from "../Constrainsts/workerConstraints.js"
 
 
@@ -70,7 +72,19 @@ switch (action.type){
                 loading:false,
                 error: action.payload
             }
-    
+        case UPDATE_WORKER_SUCCESS:
+            return{
+                loading: false,
+                user: action.payload,
+                isAuthenticatedWorker: true
+            };
+
+        case UPDATE_WORKER_FAIL:
+            return{
+                ...state,
+                loading: false,
+                isAuthenticatedWorker: true
+            };
     default: 
     return state
 }

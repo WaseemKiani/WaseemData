@@ -40,3 +40,13 @@
     cursor: pointer;
     border: solid 1px #BA68C8
 }
+
+.buttonEdit{
+    margin-top: 20px;
+    width: 180px;
+    margin-bottom: 0;
+    margin-left: 10px !important;
+}
+.image{
+    height: 340px;
+}

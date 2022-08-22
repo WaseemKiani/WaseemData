@@ -6,7 +6,10 @@ import {
     REGISTER_WORKER_SUCCESS,
     REGISTER_WORKER_FAIL,
     LOGOUT_SUCCESS,
-    LOGOUT_FAIL
+    LOGOUT_FAIL,
+    UPDATE_WORKER_REQUEST,
+    UPDATE_WORKER_SUCCESS,
+    UPDATE_WORKER_FAIL
 } from "../Constrainsts/workerConstraints"
 
 import axios from "axios";
@@ -68,3 +71,39 @@ export const logoutWorker =()=> async(dispatch)=>{
         }) 
     }
 };
+
+
+
+
+             //  Update Workers Data
+
+export const UpdateWorkerInfo =(newData)=> async(dispatch)=>{
+    try {
+        dispatch({ type: UPDATE_WORKER_REQUEST });
+    
+        const config = { headers: { "Content-Type": "application/json" } };
+    
+        const data = await axios.put(`/api/v1/updateUserProfile`, newData, config);
+    
+        dispatch({ type: UPDATE_WORKER_SUCCESS, payload: data.data });
+
+    }catch(error){
+        dispatch({
+            type: UPDATE_WORKER_FAIL,
+            payload:error.response.data.message,
+        }) 
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
