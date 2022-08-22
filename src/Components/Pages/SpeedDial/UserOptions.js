@@ -45,7 +45,7 @@ const UserOptions = ({user}) => {
         }
     }
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     return (
     <Fragment>
         <SpeedDial
