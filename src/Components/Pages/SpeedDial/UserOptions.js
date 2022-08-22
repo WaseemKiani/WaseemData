@@ -55,7 +55,7 @@ const UserOptions = ({user}) => {
         onOpen={()=>setOpen(true)}
         open={open}
         direction="down"
-        icon={<img className='speedDialIcon' src={profile} />}
+        icon={<img className='speedDialIcon' src={user.image?user.image: profile} />}
         >
             {
                 options.map((val)=>(
